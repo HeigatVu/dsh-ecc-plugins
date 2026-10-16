@@ -37,14 +37,19 @@ checkout, and after moving the checkout.
 
 From the DSH GUI: **Plugins → install bundle**, target this directory. From an
 agent session, the `plugin_manager` tool with `install_bundle` and the same
-absolute path. The equivalent CLI step is a pnpm link in the profile:
+absolute path. The equivalent CLI step installs the package into the profile:
 
 ```bash
-cd ~/.dsh && dsh plugin --profile web add -D <ECC_ROOT>/plugins/dsh
+cd ~/.dsh
+dsh plugin --profile web add <ECC_ROOT>/plugins/dsh           # local checkout
+dsh plugin --profile web add github:HeigatVu/dsh-ecc-plugins  # from this repository
 ```
 
-then append `ecc-dsh` to `dsh.profile.bundles` in
-`~/.dsh/profiles/web/package.json` if the installer did not.
+Either spec puts `ecc-dsh` in the profile's `dependencies`. It must also be listed
+in `dsh.profile.bundles` (`~/.dsh/profiles/web/package.json`), because only the
+listed bundles are mounted; add the entry if the installer did not. Installing with
+`-D` files the package under `devDependencies` and leaves it out of `bundles`,
+which mounts no rows at all.
 
 ## 3. Override the checkout path (optional)
 
