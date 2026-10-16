@@ -1,0 +1,31 @@
+# The ECC-on-DSH bundle patch: Everything Claude Code mounted into a DeepSeek
+# Harness profile as one bundle, replacing the two manual steps in
+# docs/DEEPSEEK-HARNESS-GUIDE.md (per-skill symlinks + a hand-written profile
+# patch entry).
+#
+# Row `ecc-skills` serves ECC/skills as a HOST-plane skill provider. It
+# registers into the `skill` registry's global layer, so every agent preset
+# reads the whole catalog; nothing is copied or symlinked into ~/.dsh/skills.
+# `includeDefaultRoots: false` keeps this provider to the ECC catalog alone.
+#
+# Row `ecc-hooks` mounts ECC command hooks through the first-party Claude Code
+# bridge. Its config is generated from ECC hooks/hooks.json by
+# scripts/dsh/generate-hooks-config.js (see README.md); regenerate it after
+# moving or updating the checkout.
+#
+# ECC_ROOT overrides the checkout path for both rows.
+
+- insert:
+    - id: ecc-skills
+      name: '@deepseek-ai/dsh-skill-filesystem'
+      config:
+        providerName: ecc
+        includeDefaultRoots: false
+        customSkillDirs:
+          - !!js (process.env.ECC_ROOT || '/home/ducvu/Heigat-home/project/ECC') + '/skills'
+
+    - id: ecc-hooks
+      name: '@deepseek-ai/dsh-hooks-claude-code'
+      config:
+        configPath: !!js dshHomePath('ecc/hooks-dsh.json')
+        pluginRoot: !!js process.env.ECC_ROOT || '/home/ducvu/Heigat-home/project/ECC'

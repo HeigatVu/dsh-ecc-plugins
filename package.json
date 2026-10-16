@@ -1,0 +1,27 @@
+{
+  "name": "ecc-dsh",
+  "version": "0.1.0",
+  "description": "Everything Claude Code (ECC) on DeepSeek Harness: the ECC skill catalog and ECC command hooks as one DSH bundle",
+  "type": "module",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "files": [
+    "cordis.patch.yml",
+    "locale/",
+    "README.md"
+  ],
+  "engines": {
+    "node": "^22.19.0 || >=24"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "ecc",
+    "everything-claude-code",
+    "bundle"
+  ],
+  "license": "MIT"
+}

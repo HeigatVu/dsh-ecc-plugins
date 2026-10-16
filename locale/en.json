@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Everything Claude Code (ECC)",
+    "description": "Mounts the ECC skill catalog as a host skill provider and the ECC command hooks through the first-party Claude Code hooks bridge."
+  }
+}
